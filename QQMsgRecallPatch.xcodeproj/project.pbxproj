@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F9E93A61BD781DD005A50A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9E93A51BD781DD005A50A5 /* Foundation.framework */; settings = {ASSET_TAGS = (); }; };
+		0F9E93A61BD781DD005A50A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9E93A51BD781DD005A50A5 /* Foundation.framework */; };
 		0F9E93B11BD781DD005A50A5 /* QQMsgRecallPatch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0F9E93B01BD781DD005A50A5 /* QQMsgRecallPatch.mm */; };
 		0F9E93BE1BD78201005A50A5 /* libsubstrate.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9E93BD1BD78201005A50A5 /* libsubstrate.dylib */; };
 /* End PBXBuildFile section */
@@ -248,7 +248,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(iOSOpenDevPath)/include/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(iOSOpenDevPath)/lib/**";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-segalign,4000";
@@ -273,7 +273,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(iOSOpenDevPath)/include/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(iOSOpenDevPath)/lib/**";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-segalign,4000";
@@ -302,10 +302,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				iOSOpenDevBuildPackageOnAnyBuild = NO;
 				iOSOpenDevCopyOnBuild = NO;
-				iOSOpenDevDevice = "";
-				iOSOpenDevInstallOnAnyBuild = NO;
+				iOSOpenDevDevice = 127.0.0.1;
+				iOSOpenDevInstallOnAnyBuild = YES;
 				iOSOpenDevInstallOnProfiling = NO;
-				iOSOpenDevRespringOnInstall = YES;
+				iOSOpenDevRespringOnInstall = NO;
 				iOSOpenDevUsePackageVersionPList = YES;
 			};
 			name = Debug;
@@ -328,10 +328,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				iOSOpenDevBuildPackageOnAnyBuild = NO;
 				iOSOpenDevCopyOnBuild = NO;
-				iOSOpenDevDevice = "";
-				iOSOpenDevInstallOnAnyBuild = NO;
+				iOSOpenDevDevice = 127.0.0.1;
+				iOSOpenDevInstallOnAnyBuild = YES;
 				iOSOpenDevInstallOnProfiling = NO;
-				iOSOpenDevRespringOnInstall = YES;
+				iOSOpenDevRespringOnInstall = NO;
 				iOSOpenDevUsePackageVersionPList = YES;
 			};
 			name = Release;
