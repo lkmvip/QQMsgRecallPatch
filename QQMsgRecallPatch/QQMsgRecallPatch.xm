@@ -58,43 +58,43 @@ static BOOL trail = NO;
 //-(RecallModel*)generateRecallModelByMsg:(id)msg;
 //@end
 //
-//@interface QQMessageModel
-//@property(readonly) int msgType;
-//@end
+@interface QQMessageModel
+@property (readonly) int msgType;
+@property (assign, nonatomic) unsigned msgID;
+@end
 
 #pragma mark - better recall tips
 
-//%hook QQMessageRecallModule
-//- (void)handleRecallNotify:(id)notify isOnline:(BOOL)online {
-//    %orig(notify, online);
-//    NSLog(@"handleRecallNotify:isOnline:");
-//    return;
-//}
-//%end
+%hook QQMessageRecallModule
+- (void)handleRecallNotify:(id)notify isOnline:(BOOL)online {
+    return;
+}
+%end
 
 %hook RecallC2CBaseProcessor
-- (id)getLocalMessage:(id)item {
-    trail = YES;
-    return nil;
-}
-
-- (NSString *)getRecallMessageContent:(id)content {
-    if (trail) {
-        trail = NO;
-        return [[%orig(content) stringByReplacingOccurrencesOfString:@"撤回了" withString:@"尝试撤回"] stringByAppendingString:@" (已恢复)"];
-    } else {
-        return %orig(content);
-    }
-}
-
-//- (void)updateMessageContentAndType:(id)msg content:(id)content msgType:(int)type
-//{
-//    NSMutableArray *arr = [NSMutableArray array];
-//    [arr addObject:msg];
-//    [[[[%c(QQPlatform) sharedPlatform] QQServiceCenter] C2CMultiTableDB] batchInsertReceivedMessages:arr];
-//    %orig(msg, content, type);
-//    return;
+//- (id)getLocalMessage:(id)item {
+//    if (%orig(item) != nil) {
+//        trail = YES;
+//    }
+//    return nil;
 //}
+
+//- (NSString *)getRecallMessageContent:(id)content {
+//    if (trail) {
+//        trail = NO;
+//        return [[%orig(content) stringByReplacingOccurrencesOfString:@"撤回了" withString:@"尝试撤回"] stringByAppendingString:@" (已恢复)"];
+//    } else {
+//        return %orig(content);
+//    }
+//}
+
+- (void)updateMessageContentAndType:(id)msg content:(id)content msgType:(int)type
+{
+    QQMessageModel *msg_model = (QQMessageModel *)msg;
+    NSString *notify_str = (NSString *)content;
+    %orig(msg, content, type);
+    return;
+}
 
 //- (id)solveRecallNotify:(id)notify isOnline:(BOOL)online {
 //    RecallModel *model = (RecallModel *)notify;
@@ -129,45 +129,49 @@ static BOOL trail = NO;
 //}
 %end
 
-%hook RecallDiscussProcessor
-- (id)getLocalMessage:(id)item {
-    trail = YES;
-    return nil;
-}
-
-- (NSString *)getRecallMessageContent:(id)content
-                                 item:(id)item
-                                  msg:(id)msg
-                             isOnline:(BOOL)online
-{
-    if (trail) {
-        trail = NO;
-        return [[%orig(content, item, msg, online) stringByReplacingOccurrencesOfString:@"撤回了" withString:@"尝试撤回"] stringByAppendingString:@" (已恢复)"];
-    } else {
-        return %orig(content, item, msg, online);
-    }
-}
-%end
-
-%hook RecallGroupProcessor
-- (id)getLocalMessage:(id)item {
-    trail = YES;
-    return nil;
-}
-
-- (id)getRecallMessageContent:(id)content
-                         item:(id)item
-                          msg:(id)msg
-                     isOnline:(BOOL)online
-{
-    if (trail) {
-        trail = NO;
-        return [[%orig(content, item, msg, online) stringByReplacingOccurrencesOfString:@"撤回了" withString:@"尝试撤回"] stringByAppendingString:@" (已恢复)"];
-    } else {
-        return %orig(content, item, msg, online);
-    }
-}
-%end
+//%hook RecallDiscussProcessor
+//- (id)getLocalMessage:(id)item {
+//    if (%orig(item) != nil) {
+//        trail = YES;
+//    }
+//    return nil;
+//}
+//
+//- (NSString *)getRecallMessageContent:(id)content
+//                                 item:(id)item
+//                                  msg:(id)msg
+//                             isOnline:(BOOL)online
+//{
+//    if (trail) {
+//        trail = NO;
+//        return [[%orig(content, item, msg, online) stringByReplacingOccurrencesOfString:@"撤回了" withString:@"尝试撤回"] stringByAppendingString:@" (已恢复)"];
+//    } else {
+//        return %orig(content, item, msg, online);
+//    }
+//}
+//%end
+//
+//%hook RecallGroupProcessor
+//- (id)getLocalMessage:(id)item {
+//    if (%orig(item) != nil) {
+//        trail = YES;
+//    }
+//    return nil;
+//}
+//
+//- (id)getRecallMessageContent:(id)content
+//                         item:(id)item
+//                          msg:(id)msg
+//                     isOnline:(BOOL)online
+//{
+//    if (trail) {
+//        trail = NO;
+//        return [[%orig(content, item, msg, online) stringByReplacingOccurrencesOfString:@"撤回了" withString:@"尝试撤回"] stringByAppendingString:@" (已恢复)"];
+//    } else {
+//        return %orig(content, item, msg, online);
+//    }
+//}
+//%end
 
 %end
 
